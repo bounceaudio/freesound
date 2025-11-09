@@ -1,36 +1,35 @@
 import os
 
 from invoke import task
+from invoke.context import Context
 
-CHECK_DIRS = "src/freesound"
 DIRNAME = os.path.dirname(__file__)
 MYPY_CONFIG = os.path.join(DIRNAME, "mypy.ini")
 
 
 @task
-def linters(ctx):
+def linters(ctx: Context) -> None:
     cmd = "ruff check"
     print(cmd)
     ctx.run(cmd)
 
 
 @task
-def code_style(ctx):
+def code_style(ctx: Context) -> None:
     cmd = "ruff format --check"
     print(cmd)
     ctx.run(cmd)
 
 
 @task
-def mypy(ctx):
-    to_check = os.path.join(DIRNAME, CHECK_DIRS)
-    cmd = f"mypy --config-file {MYPY_CONFIG} {to_check}"
+def mypy(ctx: Context) -> None:
+    cmd = f"mypy --config-file {MYPY_CONFIG} {DIRNAME}"
     print(cmd)
     ctx.run(cmd)
 
 
 @task
-def validate_pyproject_toml(ctx):
+def validate_pyproject_toml(ctx: Context) -> None:
     project_file = os.path.join(DIRNAME, "pyproject.toml")
     cmd = f"validate-pyproject {project_file}"
     print(cmd)
@@ -38,19 +37,18 @@ def validate_pyproject_toml(ctx):
 
 
 @task
-def pytest(ctx):
-    os.environ["USE_REAL_DATASET_REGISTER"] = "No"
+def pytest(ctx: Context) -> None:
     cmd = f"pytest --color=yes {DIRNAME}"
     print(cmd)
     ctx.run(cmd)
 
 
 @task
-def pylint(ctx):
+def pylint(ctx: Context) -> None:
     rcfile = os.path.join(DIRNAME, "pylint.rc")
 
     with ctx.cd(DIRNAME):
-        cmd = f"pylint --rcfile={rcfile} {CHECK_DIRS}"
+        cmd = f"pylint --rcfile={rcfile}"
         print(cmd)
         ctx.run(cmd)
 
@@ -63,5 +61,5 @@ def pylint(ctx):
     pylint,
     pytest,
 )
-def build(_):
+def build(_ctx: Context) -> None:
     pass

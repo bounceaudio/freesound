@@ -1,0 +1,32 @@
+[project]
+name = "freesound"
+version = "0.1.0"
+description = "Python client for the freesound.org API"
+readme = "README.md"
+authors = [
+    { name = "bounceaudio", email = "info@bounceaudio.com" }
+]
+requires-python = ">=3.8"
+dependencies = []
+license = {text = "MIT"}
+keywords = ["freesound", "audio", "api", "client"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/bounceaudio/freesound"
+Repository = "https://github.com/bounceaudio/freesound"
+Issues = "https://github.com/bounceaudio/freesound/issues"
+
+[build-system]
+requires = ["uv_build>=0.9.8,<0.10.0"]
+build-backend = "uv_build"

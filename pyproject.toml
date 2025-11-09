@@ -5,11 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "dacite>=1.9.2",
     "invoke>=2.2.1",
     "mypy>=1.18.2",
     "pylint>=4.0.2",
     "pytest>=9.0.0",
+    "pytest-cov>=6.0.0",
     "requests>=2.32.5",
     "ruff>=0.14.4",
+    "types-requests>=2.32.4.20250913",
     "validate-pyproject>=0.24.1",
 ]

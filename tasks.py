@@ -44,11 +44,18 @@ def pytest(ctx: Context) -> None:
 
 
 @task
+def coverage(ctx: Context) -> None:
+    cmd = f"pytest --cov={DIRNAME} --cov-report=xml --cov-report=term {DIRNAME}"
+    print(cmd)
+    ctx.run(cmd)
+
+
+@task
 def pylint(ctx: Context) -> None:
     rcfile = os.path.join(DIRNAME, "pylint.rc")
 
     with ctx.cd(DIRNAME):
-        cmd = f"pylint --rcfile={rcfile}"
+        cmd = f"pylint --rcfile={rcfile} {DIRNAME}"
         print(cmd)
         ctx.run(cmd)
 

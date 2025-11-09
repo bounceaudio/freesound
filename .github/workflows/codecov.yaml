@@ -1,0 +1,39 @@
+name: Code Coverage
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    container:
+      image: "python:3.14-trixie"
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y -qq build-essential
+          pip install uv==0.9.6
+      
+      - name: Generate coverage report
+        run: |
+          export PYTHONPATH="$GITHUB_WORKSPACE"
+          uv run invoke coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
